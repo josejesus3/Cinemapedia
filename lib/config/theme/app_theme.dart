@@ -14,8 +14,8 @@ class AppTheme {
   final int selectColor;
   final bool isDrack;
   AppTheme({this.selectColor = 0, this.isDrack = true})
-      : assert(selectColor < 0, 'SelectColor entre 0 y ${colorsList.length}'),
-        assert(selectColor > colorsList.length,
+      : assert(selectColor >= 0, 'SelectColor entre 0 y ${colorsList.length}'),
+        assert(selectColor < colorsList.length,
             'Seleccolors menor que ${colorsList.length}');
 
   ThemeData getTheme() => ThemeData(
