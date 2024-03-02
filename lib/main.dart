@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:cinemapedia/config/router/app_router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,6 +12,7 @@ Future<void> main() async {
 
   runApp(const ProviderScope(child: MyApp()));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

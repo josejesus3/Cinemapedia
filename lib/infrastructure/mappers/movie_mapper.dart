@@ -6,7 +6,7 @@ class MovieMapper {
       adult: moviedb.adult, 
       backdropPath:(moviedb.backdropPath !='')
       ?'https://image.tmdb.org/t/p/w500${moviedb.backdropPath}'
-      :'https://easimages.basnop.com/default-image_600.png', 
+      :'no-poster', 
       genreIds: moviedb.genreIds.map((movie) => movie.toString()).toList(), 
       id: moviedb.id, 
       originalLanguage:moviedb.originalLanguage, 
