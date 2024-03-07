@@ -4,7 +4,7 @@ class CustomAppbar extends StatelessWidget {
   const CustomAppbar({super.key});
   @override
   Widget build(BuildContext context) {
-    final textTitle = Theme.of(context).textTheme.titleMedium;
+    final textTitle = Theme.of(context).textTheme.titleLarge;
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -22,9 +22,9 @@ class CustomAppbar extends StatelessWidget {
                 'CinemaPedia',
                 style: textTitle,
               ),
-              Spacer(),
+              const Spacer(),
               IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.search_rounded))
+                  onPressed: () {}, icon: const Icon(Icons.search_rounded,size: 30,))
             ],
           ),
         ),
