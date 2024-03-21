@@ -2,7 +2,7 @@ import 'package:cinemapedia/infrastructure/models/moviedb/movie_moviedb.dart';
 
 class MovieDbResponse {
   final Dates? dates;
-  final int page;
+  final int page;  
   final List<MovieMoviedb> result;
   final int totalPages;
   final int totalMovieMoviedbs;

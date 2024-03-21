@@ -7,7 +7,7 @@ class MovieMapper {
       adult: movieDetails.adult, 
       backdropPath:(movieDetails.backdropPath !='')
       ?'https://image.tmdb.org/t/p/w500${movieDetails.backdropPath}'
-      :'no-poster', 
+      :'https://www.prokerala.com/movies/assets/img/no-poster-available.jpg', 
       genreIds: movieDetails.genreIds.map((movie) => movie.toString()).toList(), 
       id: movieDetails.id, 
       originalLanguage:movieDetails.originalLanguage, 
@@ -16,7 +16,7 @@ class MovieMapper {
       popularity: movieDetails.popularity, 
       posterPath:(movieDetails.posterPath !='')
       ?'https://image.tmdb.org/t/p/w500${movieDetails.posterPath}' 
-      :'no-poster', 
+      :'https://www.prokerala.com/movies/assets/img/no-poster-available.jpg', 
       releaseDate: movieDetails.releaseDate, 
       title: movieDetails.title, 
       video: movieDetails.video, 
