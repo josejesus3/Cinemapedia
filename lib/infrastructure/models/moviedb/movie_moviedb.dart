@@ -8,7 +8,7 @@ class MovieMoviedb {
   final String overview;
   final double popularity;
   final String posterPath;
-  final DateTime releaseDate;
+  final String releaseDate;
   final String title;
   final bool video;
   final double voteAverage;
@@ -43,7 +43,7 @@ class MovieMoviedb {
         overview: json["overview"] ?? '',
         popularity: json["popularity"]?.toDouble() ?? 0,
         posterPath: json["poster_path"] ?? '',
-        releaseDate: DateTime.parse(json["release_date"]),
+        releaseDate: json["release_date"] ?? '',
         title: json["title"] ?? '',
         video: json["video"] ?? false,
         voteAverage: json["vote_average"]?.toDouble() ?? 0,
@@ -60,8 +60,7 @@ class MovieMoviedb {
         "overview": overview,
         "popularity": popularity,
         "poster_path": posterPath,
-        "release_date":
-            "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+        "release_date": releaseDate,
         "title": title,
         "video": video,
         "vote_average": voteAverage,
