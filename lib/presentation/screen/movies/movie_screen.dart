@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movies.dart';
 import 'package:cinemapedia/presentation/provider/providers.dart';
+import 'package:cinemapedia/presentation/views/movies/favorites_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -197,10 +198,27 @@ class _CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sized = MediaQuery.of(context).size;
+    bool isFavorite = false;
     return SliverAppBar(
       backgroundColor: Colors.black,
       expandedHeight: sized.height * 0.7,
       foregroundColor: Colors.white,
+      actions: [
+        //Icon(Icons. favorite_rounded)
+        Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              icon: isFavorite == false
+                  ? const Icon(Icons.favorite_border)
+                  : const Icon(
+                      Icons.favorite_rounded,
+                      color: Colors.red,
+                    ),
+              onPressed: () {
+                isFavorite = !isFavorite;
+              },
+            ))
+      ],
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.only(left: 10, right: 20, bottom: 20),
         background: Stack(
@@ -208,10 +226,23 @@ class _CustomSliverAppBar extends StatelessWidget {
             SizedBox.expand(
               child: Image.network(
                 movie.posterPath,
+                fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress != null) return const SizedBox();
                   return FadeIn(child: child);
                 },
+              ),
+            ),
+            const SizedBox.expand(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    stops: [0.0, 0.2],
+                    colors: [Colors.black87, Colors.transparent],
+                  ),
+                ),
               ),
             ),
             const SizedBox.expand(

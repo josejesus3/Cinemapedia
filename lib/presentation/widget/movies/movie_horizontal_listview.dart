@@ -100,7 +100,7 @@ class _Slide extends StatelessWidget {
                                   CircularProgressIndicator(strokeWidth: 2)));
                     }
                     return GestureDetector(
-                      onTap: ()=>context.push('/movie/${movies.id}'),
+                      onTap: ()=>context.push('/home/0/movie/${movies.id}'),
                       child: FadeInDown(
                         child: child
                         ),

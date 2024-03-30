@@ -5,8 +5,13 @@ class FavoritesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Favoritos'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Favoritos view'),
+      ),
+      body: const Center(
+        child: Text('Favoritos'),
+      ),
     );
   }
 }
