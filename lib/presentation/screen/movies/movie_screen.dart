@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movies.dart';
 import 'package:cinemapedia/presentation/provider/providers.dart';
-import 'package:cinemapedia/presentation/views/movies/favorites_view.dart';
+import 'package:cinemapedia/presentation/provider/storange/favorite_movie_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -189,35 +189,58 @@ class _ActorByMovie extends ConsumerWidget {
   }
 }
 
-class _CustomSliverAppBar extends StatelessWidget {
+final isFavoriteProvider =
+    FutureProvider.family.autoDispose((ref, int movieId) {
+  final localStorangeRepository = ref.watch(localStorangeProvider);
+  return localStorangeRepository.isMovieFavorite(movieId);
+});
+
+class _CustomSliverAppBar extends ConsumerWidget {
   final Movie movie;
   const _CustomSliverAppBar({
     required this.movie,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final sized = MediaQuery.of(context).size;
-    bool isFavorite = false;
+    double iconSized = 28.0;
+    final isFavorite = ref.watch(isFavoriteProvider(movie.id));
     return SliverAppBar(
       backgroundColor: Colors.black,
       expandedHeight: sized.height * 0.7,
       foregroundColor: Colors.white,
       actions: [
         //Icon(Icons. favorite_rounded)
-        Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: IconButton(
-              icon: isFavorite == false
-                  ? const Icon(Icons.favorite_border)
-                  : const Icon(
-                      Icons.favorite_rounded,
-                      color: Colors.red,
-                    ),
-              onPressed: () {
-                isFavorite = !isFavorite;
-              },
-            ))
+        IconButton(
+          onPressed: () async {
+            await ref
+                .read(favoriteMovieProvider.notifier)
+                .toogleFavorite(movie);
+
+            ref.invalidate(isFavoriteProvider(movie.id));
+          },
+          icon: isFavorite.when(
+            loading: () => const CircularProgressIndicator(strokeWidth: 2),
+            data: (isFavorite) => isFavorite
+                ? Icon(
+                    Icons.favorite_rounded,
+                    color: Colors.red,
+                    size: iconSized,
+                  )
+                : Icon(
+                    Icons.favorite_border,
+                    size: iconSized,
+                  ),
+            error: (_, __) => throw UnimplementedError(),
+          ),
+
+          // const Icon( Icons.favorite_border )
+          // icon: const Icon( Icons.favorite_rounded, color: Colors.red )
+        ),
+        const SizedBox(
+          width: 30,
+        )
       ],
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.only(left: 10, right: 20, bottom: 20),
@@ -240,7 +263,7 @@ class _CustomSliverAppBar extends StatelessWidget {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     stops: [0.0, 0.2],
-                    colors: [Colors.black87, Colors.transparent],
+                    colors: [Colors.black54, Colors.transparent],
                   ),
                 ),
               ),
@@ -251,7 +274,7 @@ class _CustomSliverAppBar extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     stops: [0.0, 0.2],
-                    colors: [Colors.black87, Colors.transparent],
+                    colors: [Colors.black54, Colors.transparent],
                   ),
                 ),
               ),
